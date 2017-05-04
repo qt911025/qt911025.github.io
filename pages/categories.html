@@ -1,0 +1,44 @@
+---
+layout: default
+title: 分类
+permalink: /categories/
+---
+<header class="jumbotron bg-success text-white">
+    <div class="container">
+        <h1>分类</h1>
+        <p class="lead">请自便</p>
+    </div>
+</header>
+
+<section class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            {% assign sorted_categories = site.categories | sort %}
+            <div id="__categories__" role="tablist" aria-multiselectable="true">
+
+                {% for cat in sorted_categories %}
+                <div class="card">
+                    <div id="heading-{{cat | first}}" class="card-header" role="tab">
+                        <h5 class="mb-0">
+                            <a data-toggle="collapse" data-parent="#__categories__" href="#collapse-{{cat | first}}" aria-expanded="false" aria-controls="collapse-{{cat | first}}">{{ cat | first }}</a>
+                            <span class="badge badge-primary">{{cat | last | size}}</span>
+                        </h5>
+                    </div>
+
+                    <div id="collapse-{{cat | first}}" class="collapse" role="tabpanel" aria-labelledby="heading-{{cat | first}}">
+                        <div class="list-group list-group-flush">
+                            {% for post in cat.last %}
+                            <a href="{{post.url}}" class="list-group-item list-group-item-action">
+                                <span class="mr-2">{{post.title}}</span>
+                                <small>{{ post.date | date:"%Y-%m-%d" }}</small>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</section>

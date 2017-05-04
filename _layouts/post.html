@@ -1,0 +1,60 @@
+---
+layout: default
+---
+<header class="jumbotron bg-faded">
+    <div class="container">
+        <h1>{{ page.title }}</h1>
+
+        {% if page.subtitle %}
+        <p class="lead">{{ page.subtitle  }}</p>
+        {% endif %}
+
+        <span class="mr-2">
+            <span class="fa fa-pencil"></span>
+            <small>{{ page.author | default: site.author }}</small>
+        </span>
+
+        {% if page.date %}
+        <span class="mr-2">
+            <span class="fa fa-calendar"></span>
+            <small>{{ page.date | date: "%Y/%m/%d - %H : %M" }}</small>
+        </span>
+        {% endif %}
+
+        {% if page.categories %}
+        <span class="mr-2">
+            <span class="fa fa-tag"></span>
+            {% for cat in page.categories %}
+            <small>
+                <a href="/categories/#heading-{{ cat }}" title="{{ cat }}">{{ cat }}</a>
+            </small>
+            {% endfor %}
+        </span>
+        {% endif %}
+
+    </div>
+</header>
+
+<section class="container">
+    {{ content }}
+</section>
+
+<!-- Netease yungentie -->
+<section class="container">
+    {% if page.comments != false and site.netease_gentie_key%}
+
+    <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href,
+        sourceId: "{{ page.url }}",
+        productKey: "{{ site.netease_gentie_key }}",
+        target: "cloud-tie-wrapper"
+      };
+      var yunManualLoad = true;
+      Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+    </script>
+
+    {% endif %}
+</section>
