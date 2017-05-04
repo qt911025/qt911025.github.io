@@ -3,6 +3,7 @@ subtitle: 攻略、笔记及其他
 description: 通过写教程学习
 baseurl: ""
 url: "https://quentine.me"
+enforce_ssl: "quentine.me"
 favicon: /favicon.ico
 timezone: Asia/Shanghai
 encoding: "utf-8"
