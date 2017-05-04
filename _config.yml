@@ -41,3 +41,5 @@ subscribe_rss: /feed.xml
 netease_gentie_key: e72ddc6ba6c242798aa97a4856d62c29
 google:
   analytics_id: UA-98448525-1
+
+theme: jekyll-theme-cayman
