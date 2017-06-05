@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "一个自己实现的Promise"
-categories:Tech Javascript Promise
+title: 一个自己实现的Promise
+categories: Tech Javascript Promise
 ---
 
 自己照着 [Promise A+](https://promisesaplus.com/)  标准，以及 es6 的标准 Promise 实现的。没做任何优化（比如说那些钩子应该用链表来聚合的），没有 defer 。完全 es5 和 commonjs （不对应 es6 模块机制）。
