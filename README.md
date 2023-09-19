@@ -1,2 +1,3 @@
 # qt911025.github.io
-My personal blog
+QuenTine的博客
+日志、DEMO、等等
