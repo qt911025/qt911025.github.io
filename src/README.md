@@ -2,11 +2,11 @@
 home: true
 layout: BlogHome
 icon: home
-title: 博客主页
+title: 主页
 heroImage: /logo.svg
-heroText: 你博客的名称
+heroText: QuenTine的博客
 heroFullScreen: true
-tagline: 你可以在这里放置你的口号与标语
+tagline: 要多想
 projects:
   - icon: project
     name: 项目名称

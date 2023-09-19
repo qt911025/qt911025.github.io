@@ -1,5 +1,5 @@
 ---
-title: 主要功能与配置演示
+title: 试验场
 index: false
 icon: laptop-code
 category:
