@@ -1,5 +1,6 @@
 ---
-icon: circle-info
+icon: user
+article: false
 cover: /assets/images/cover3.jpg
 ---
 
