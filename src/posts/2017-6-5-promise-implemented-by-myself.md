@@ -1,6 +1,6 @@
 ---
 title: 一个自己实现的Promise
-date: 2017-6-15
+date: 2017-06-05
 category: 编程
 tag: Javascript
 ---
