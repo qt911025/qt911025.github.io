@@ -10,20 +10,20 @@
     "dev": "vuepress dev src",
     "update-package": "pnpm dlx vp-update"
   },
+  "ts-standard": {
+    "ignore": [
+      "!src/.vuepress",
+      "src/vuepress/.cache",
+      "src/vuepress/.temp",
+      "src/vuepress/dist"
+    ]
+  },
   "devDependencies": {
-    "@jridgewell/sourcemap-codec": "^1.4.15",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@vue/repl": "^2.8.0",
     "@vuepress/client": "2.0.0-rc.0",
-    "@waline/client": "2.15.8",
-    "chart.js": "^4.4.0",
-    "echarts": "^5.4.3",
-    "flowchart.ts": "^1.0.1",
-    "katex": "^0.16.9",
-    "mermaid": "^10.6.1",
-    "reveal.js": "^5.0.2",
-    "vue": "^3.3.8",
+    "@waline/client": "^2.15.8",
+    "ts-standard": "^12.0.2",
+    "vue": "^3.4.15",
     "vuepress": "2.0.0-rc.0",
-    "vuepress-theme-hope": "2.0.0-rc.0"
+    "vuepress-theme-hope": "2.0.0-rc.11"
   }
 }

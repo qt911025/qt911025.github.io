@@ -1,0 +1,11 @@
+/* package.json 里的ts-standard是standard linting的配置，默认排除了带.的文件，要用反选“!”重新包括。*/
+/* standard linting 通过了筛选，还要过tsconfig.json（tsc的配置文件，也是默认排除带.的文件的），在include里给他再放行。*/
+/* vscode自动修格式用的是standard插件，还要在配置里选ts-standard */
+{
+    "include": [
+        "src/.vuepress/**/*.ts"
+    ],
+    "compilerOptions": {
+        "strictNullChecks": true
+    },
+}

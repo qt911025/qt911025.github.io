@@ -1,14 +1,13 @@
-import { defineUserConfig } from "vuepress";
-import theme from "./theme.js";
+import { defineUserConfig } from 'vuepress'
+import theme from './theme.js'
 
 export default defineUserConfig({
-  base: "/",
+  base: '/',
 
   lang: "zh-CN",
-  title: "QuenTine的博客",
-  description: "QuenTine的博客",
+  title: 'QuenTine的博客',
+  description: 'QuenTine的博客',
 
-  theme,
+  theme
 
-  
-});
+})
