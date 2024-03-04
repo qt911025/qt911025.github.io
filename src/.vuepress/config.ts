@@ -1,3 +1,4 @@
+import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
 import theme from './theme.js'
 
@@ -8,6 +9,8 @@ export default defineUserConfig({
   title: 'QuenTine的博客',
   description: 'QuenTine的博客',
 
-  theme
+  theme,
+
+  bundler: viteBundler()
 
 })
