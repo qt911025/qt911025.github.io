@@ -81,7 +81,7 @@ export default hopeTheme({
       // katex: true,
       // mathjax: true,
       mark: true,
-      // mermaid: true,
+      mermaid: true,
       playground: {
         presets: ['ts', 'vue']
       },

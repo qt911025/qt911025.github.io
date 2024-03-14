@@ -313,6 +313,26 @@ mem::forget(right);
 重复释放是因为重复索引，重复索引的点在于数组中每一个Box指针，在临时数组中都有另一个“二重身”。我们的目的是精准除掉二重身，
 需要的就是精准地“忘掉”每一个保存在临时数组里保存的Box指针，而保存指针的临时数组是应该被释放掉的。
 
+```mermaid
+graph TB
+    subgraph vec的堆
+        B(Box)
+    end
+    B --> C[数据（不可重复释放）]
+    A((vec)) --> vec的堆
+
+    subgraph left的堆
+        E(Box)
+    end
+    D((left)) --> left的堆
+    E -.-> C
+    subgraph right的堆
+        G(Box)
+    end
+    F((right)) --> right的堆
+    G -.-> C
+```
+
 所以正确的写法是：
 ```rust
 for e in left {
