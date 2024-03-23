@@ -78,7 +78,7 @@ export default hopeTheme({
       imgLazyload: true,
       imgSize: true,
       include: true,
-      // katex: true,
+      katex: true,
       // mathjax: true,
       mark: true,
       mermaid: true,
