@@ -465,6 +465,16 @@ impl<T> Bucket<T> {
     }
 }
 
+// 递归释放变循环释放
+impl<T> Drop for Bucket<T> {
+    fn drop(&mut self) {
+        let mut cur_link = self.head.take();
+        while let Some(mut box_node) = cur_link {
+            cur_link = box_node.next.take();
+        }
+    }
+}
+
 pub struct BucketIter<T>(Bucket<T>);
 
 impl<T> IntoIterator for Bucket<T> {
