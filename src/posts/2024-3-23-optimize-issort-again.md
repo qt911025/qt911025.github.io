@@ -240,7 +240,10 @@ impl<'a, Elem> Sorter for InsertionSorter<'a, Vec<Elem>> {
                         right = j;
                     }
                 }
-                ptr::copy(&vec[left], &mut vec[left + 1], i - left);
+                if i - left > 0 {
+                    // 当i - left为0时，大多数情况是不会执行的，但是left+1可能会等于vec.len()导致这行崩溃
+                    ptr::copy(&vec[left], &mut vec[left + 1], i - left); // 这时候left == right了
+                }
                 ptr::write(&mut vec[left], e);
             }
         }

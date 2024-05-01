@@ -50,7 +50,7 @@ pub fn bucket_sort(arr: Vec<f64>) -> Result<Vec<f64>, &'static str> {
             let bucket_id = (e * (arr_length as f64)).approx_as::<usize>().unwrap();
             buckets[bucket_id].push(e);
         } else {
-            return Err("元素出界！");
+            return Err("元素值溢出");
         }
     }
 
@@ -69,7 +69,7 @@ pub fn bucket_sort(arr: Vec<f64>) -> Result<Vec<f64>, &'static str> {
 @tab Cargo.toml
 ```toml
 [package]
-name = "_8_4_bucket_sort"
+name = "bucket_sort"
 version = "0.1.0"
 edition = "2021"
 
@@ -120,7 +120,7 @@ pub fn bucket_sort<T, F>(arr: Vec<T>, mapper: F) -> Result<Vec<T>, &'static str>
             let bucket_id = (key * (arr_length as f64)).approx_as::<usize>().unwrap();
             buckets[bucket_id].push((key, e));
         } else {
-            return Err("元素出界！");
+            return Err("元素值溢出");
         }
     }
 
@@ -135,6 +135,156 @@ pub fn bucket_sort<T, F>(arr: Vec<T>, mapper: F) -> Result<Vec<T>, &'static str>
         .collect();
     Ok(result)
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use issort::InsertionSorter;
+    use algorithms_prelude::CompareSorter;
+    #[test]
+    fn it_sort_ascending() {
+        let v = vec![0.79, 0.13, 0.16, 0.64, 0.39, 0.2, 0.89, 0.53, 0.71, 0.42];
+        let mut expected = v.clone();
+        InsertionSorter(&mut expected).sort_by(|prev, next| prev <= next);
+        if let Ok(result) = bucket_sort(v, |e| *e) {
+            assert_eq!(result, expected);
+        } else {
+            panic!("测试失败，不应该返回错误");
+        }
+    }
+
+    #[test]
+    fn it_overflow() {
+        let v = vec![2, 4, 1, 7, 10];
+        let result = bucket_sort(v, |e| *e as f64);
+        assert_eq!(result, Err("元素值溢出"))
+    }
+
+    #[test]
+    fn it_struct_sort_ascending() {
+        #[derive(Debug, PartialEq)]
+        struct Foo {
+            id: f64,
+            name: &'static str,
+        }
+
+        let v = vec![
+            Foo {
+                id: 0.9,
+                name: "ZS",
+            },
+            Foo {
+                id: 0.0,
+                name: "LS",
+            },
+            Foo {
+                id: 0.2,
+                name: "WW",
+            },
+            Foo {
+                id: 0.1,
+                name: "ZL",
+            },
+            Foo {
+                id: 0.3,
+                name: "SQ",
+            }
+        ];
+
+        if let Ok(result) = bucket_sort(v, |e| e.id) {
+            assert_eq!(
+                result,
+                vec![
+                    Foo {
+                        id: 0.0,
+                        name: "LS",
+                    },
+                    Foo {
+                        id: 0.1,
+                        name: "ZL",
+                    },
+                    Foo {
+                        id: 0.2,
+                        name: "WW",
+                    },
+                    Foo {
+                        id: 0.3,
+                        name: "SQ",
+                    },
+                    Foo {
+                        id: 0.9,
+                        name: "ZS",
+                    }
+                ]
+            );
+        } else {
+            panic!("测试失败，不应该返回错误");
+        }
+    }
+
+    #[test]
+    fn it_struct_sort_ascending_box() {
+        #[derive(Debug, PartialEq)]
+        struct Foo {
+            id: f64,
+            name: &'static str,
+        }
+
+        let v = vec![
+            Box::new(Foo {
+                id: 0.9,
+                name: "ZS",
+            }),
+            Box::new(Foo {
+                id: 0.0,
+                name: "LS",
+            }),
+            Box::new(Foo {
+                id: 0.2,
+                name: "WW",
+            }),
+            Box::new(Foo {
+                id: 0.1,
+                name: "ZL",
+            }),
+            Box::new(Foo {
+                id: 0.3,
+                name: "SQ",
+            })
+        ];
+
+        if let Ok(result) = bucket_sort(v, |e| e.id) {
+            assert_eq!(
+                result,
+                vec![
+                    Box::new(Foo {
+                        id: 0.0,
+                        name: "LS",
+                    }),
+                    Box::new(Foo {
+                        id: 0.1,
+                        name: "ZL",
+                    }),
+                    Box::new(Foo {
+                        id: 0.2,
+                        name: "WW",
+                    }),
+                    Box::new(Foo {
+                        id: 0.3,
+                        name: "SQ",
+                    }),
+                    Box::new(Foo {
+                        id: 0.9,
+                        name: "ZS",
+                    })
+                ]
+            );
+        } else {
+            panic!("测试失败，不应该返回错误");
+        }
+    }
+}
+
 ```
 
 为了保证元素依然是平均分布的，元素本身得是均匀分布的，而且mapper**只能是一个线性函数**，让元素计算得的键仍保持均匀分布。
@@ -149,4 +299,3 @@ pub fn bucket_sort<T, F>(arr: Vec<T>, mapper: F) -> Result<Vec<T>, &'static str>
 每个桶平均只有一个元素，所以插入和排序操作并不会消耗太多算力。链表化优化更多是针对最坏情形的，而越接近最坏情形，链表在排序上还是比二分查找慢。
 
 所以下一节只是展示一下如何在Rust实现链表，实现链表推荐[这个网站](https://rust-unofficial.github.io/too-many-lists/index.html)。
-
